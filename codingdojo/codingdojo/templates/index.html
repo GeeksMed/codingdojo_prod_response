@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if msg %}{{msg}}{% endif %}
+    {% for produto in lista %}
+    <div>
+        <h1>
+            <a href="{% url 'produto' produto.id %}">{{ produto.nome }}</a>
+        </h1>
+        <p>{{ produto.descricao }}</p>
+        <form>{% csrf_token %}
+            <button type="button" onclick="deletar('{{produto.id}}')">Excluir</button>
+        </form>
+    </div>
+    {% endfor %}
+</body>
+<script>
+function deletar(id){
+    let xhr = new XMLHttpRequest();
+    xhr.open('DELETE', `{% url 'produto_deletar' 9999 %}`.replace(9999, id));
+    xhr.send();
+}
+</script>
+</html>
